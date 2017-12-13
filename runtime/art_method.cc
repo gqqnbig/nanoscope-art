@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2011 The Android Open Source Project
+ * Copyright (c) 2018 Uber Technologies, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -133,6 +133,10 @@ uint16_t ArtMethod::FindObsoleteDexClassDefIndex() {
   const DexFile::ClassDef* class_def = dex_file->FindClassDef(declaring_class_type);
   CHECK(class_def != nullptr);
   return dex_file->GetIndexForClassDef(*class_def);
+}
+
+void ArtMethod::SetTracingEnabled(bool enabled) {
+  is_trace_enabled = enabled;
 }
 
 mirror::String* ArtMethod::GetNameAsString(Thread* self) {

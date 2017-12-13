@@ -517,6 +517,8 @@ extern "C" bool native_bridge_isCompatibleWith(uint32_t bridge_version ATTRIBUTE
 #if defined(__i386__) || defined(__x86_64__)
 #if defined(__APPLE__)
 #define ucontext __darwin_ucontext
+#define SIGRTMIN SIGPROF
+#define SIGRTMAX SIGUSR2
 
 #if defined(__x86_64__)
 // 64 bit mac build.

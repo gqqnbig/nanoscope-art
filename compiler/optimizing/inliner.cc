@@ -124,7 +124,7 @@ void HInliner::UpdateInliningBudget() {
 }
 
 void HInliner::Run() {
-  if (graph_->IsDebuggable()) {
+  if (graph_->IsDebuggable() ||  /* DISABLES CODE */ (true)) {
     // For simplicity, we currently never inline when the graph is debuggable. This avoids
     // doing some logic in the runtime to discover if a method could have been inlined.
     return;

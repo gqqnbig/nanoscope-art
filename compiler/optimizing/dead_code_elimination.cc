@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014 The Android Open Source Project
+ * Copyright (c) 2018 Uber Technologies, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -357,7 +357,9 @@ void HDeadCodeElimination::RemoveDeadInstructions() {
     for (i.Advance(); !i.Done(); i.Advance()) {
       HInstruction* inst = i.Current();
       DCHECK(!inst->IsControlFlow());
-      if (inst->IsDeadAndRemovable()) {
+      if (inst->IsDeadAndRemovable() 
+          && !inst->IsTraceStart()
+          && !inst->IsTraceEnd()) {
         block->RemoveInstruction(inst);
         MaybeRecordStat(MethodCompilationStat::kRemovedDeadInstruction);
       }

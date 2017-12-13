@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2011 The Android Open Source Project
+ * Copyright (c) 2018 Uber Technologies, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -63,12 +63,12 @@ class ArtMethod FINAL {
  public:
   // Should the class state be checked on sensitive operations?
   DECLARE_RUNTIME_DEBUG_FLAG(kCheckDeclaringClassState);
-
+  bool is_trace_enabled;
   // The runtime dex_method_index is kDexNoIndex. To lower dependencies, we use this
   // constexpr, and ensure that the value is correct in art_method.cc.
   static constexpr uint32_t kRuntimeMethodDexMethodIndex = 0xFFFFFFFF;
 
-  ArtMethod() : access_flags_(0), dex_code_item_offset_(0), dex_method_index_(0),
+  ArtMethod() : is_trace_enabled(false), access_flags_(0), dex_code_item_offset_(0), dex_method_index_(0), method_index_(0) { }
       method_index_(0), hotness_count_(0) { }
 
   ArtMethod(ArtMethod* src, PointerSize image_pointer_size) {
@@ -109,6 +109,10 @@ class ArtMethod FINAL {
     }
     return access_flags_.load(std::memory_order_relaxed);
   }
+  
+  // Defaults to false. If true, we'll allow this method to be traced. We use this blacklist methods at class load time.
+  void SetTracingEnabled(bool enabled) SHARED_REQUIRES(Locks::mutator_lock_);
+
 
   // This version should only be called when it's certain there is no
   // concurrency so there is no need to guarantee atomicity. For example,

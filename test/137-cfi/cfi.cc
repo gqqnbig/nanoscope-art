@@ -169,6 +169,8 @@ extern "C" JNIEXPORT jboolean JNICALL Java_Main_unwindInProcess(
     CauseSegfault();
   }
 
+  UNUSED(full_signatrues);
+
   return JNI_FALSE;
 }
 
@@ -289,6 +291,7 @@ extern "C" JNIEXPORT jboolean JNICALL Java_Main_unwindOtherProcess(
   return result ? JNI_TRUE : JNI_FALSE;
 #else
   UNUSED(pid_int);
+  UNUSED(full_signatrues);
   return JNI_FALSE;
 #endif
 }

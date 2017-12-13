@@ -698,6 +698,8 @@ class X86Assembler FINAL : public Assembler {
   void rep_movsb();
   void rep_movsw();
 
+  void rdtsc();
+
   X86Assembler* lock();
   void cmpxchgl(const Address& address, Register reg);
   void cmpxchg8b(const Address& address);

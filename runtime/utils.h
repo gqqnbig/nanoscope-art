@@ -341,6 +341,10 @@ inline static int32_t Signum(T opnd) {
 // Madvise the largest page aligned region within begin and end.
 int MadviseLargestPageAlignedRegion(const uint8_t* begin, const uint8_t* end, int advice);
 
+uint64_t ALWAYS_INLINE generic_timer_count();
+uint64_t ALWAYS_INLINE generic_timer_ts();
+
+uint64_t ALWAYS_INLINE ticks_per_second();
 }  // namespace art
 
 #endif  // ART_RUNTIME_UTILS_H_
